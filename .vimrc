@@ -19,9 +19,13 @@ Plugin 'tpope/vim-surround'                         " change surrounding marks
 Plugin 'tpope/vim-repeat'                           " dot works with plugins
 Plugin 'mtdl9/vim-log-highlighting'
 Plugin 'vimwiki/vimwiki'                            " Vim wiki
+Plugin 'tpope/vim-commentary'                       " Better comments
+Plugin 'unblevable/quick-scope'                     " First letter highlighting
+"Plugin 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 "Plugin 'dracula/vim', { 'name': 'dracula' }         " colorscheme
-Plugin 'gosukiwi/vim-atom-dark', { 'name': 'vim-atom-dark' }         " colorscheme
+"Plugin 'gosukiwi/vim-atom-dark', { 'name': 'vim-atom-dark' }         " colorscheme
+Plugin 'tomasiser/vim-code-dark'
 
 
 call vundle#end()		        " required, all plugins must appear before this line.
@@ -30,9 +34,6 @@ filetype plugin indent on       " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Themes and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme atom-dark
-"colorscheme dracula
-
 if has('win32')
     "set guifont=Ubuntu\ Mono:h16
     set guifont=Consolas:h17
@@ -40,6 +41,27 @@ else
     set guifont=Monaco:h15
     "set guifontwide=NSimsun:h12
 endif
+
+"colorscheme atom-dark
+colorscheme codedark
+"colorscheme dracula
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Hexokinase
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:Hexokinase_highlighters = [ 'sign_column' ]
+let g:Hexokinase_optInPatterns = 'full_hex,rgb,rgba,hsl,hsla,colour_names,'
+let g:Hexokinase_ftEnabled = ['css', 'html', 'js', 'qml']
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Quick Scope
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Trigger a highlight only when pressing f and F.
+let g:qs_highlight_on_keys = ['f', 'F']
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tags
@@ -54,7 +76,7 @@ set tags+=C:\code\scratch-sohil\tags
 " Lightline Configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:lightline = {
-      \ 'colorscheme': 'dracula',
+      \ 'colorscheme': 'codedark',
       \ }
 
 
@@ -64,14 +86,11 @@ let g:lightline = {
 
 let g:vimwiki_list = [
             \ {
-            \   'path': 'c:\code\sr\dotfiles\vimwiki',
+            \   'path': 'c:\code\sr\dotfiles\.vim\vimwiki',
             \   'syntax': 'markdown',
             \   'ext': '.md',
             \}
             \]
-
-"let g:vimwiki_list = [ { 'path': 'c:\code\sr\dotfiles\vimwiki', 'syntax': 'markdown', 'ext': '.md', }]
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap Keys
@@ -94,6 +113,9 @@ nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR><CR>
+nmap <silent> <A-=> :wincmd =<CR><CR>
+nmap <silent> <A-_> :wincmd _<CR><CR>
+nmap <silent> <A-\|> :wincmd \|<CR><CR>
 
 "Open matching tag in new tab or vsp
 nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -101,8 +123,8 @@ nnoremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 let mapleader = ","
 
-nnoremap <leader>ev :tabnew<CR>:e c:\code\sr\dotfiles\.vimrc<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
+nnoremap <leader>ev :vsp c:\code\sr\dotfiles\.vimrc<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 inoremap jk <esc>
 "inoremap <esc> <nop>
 
@@ -130,6 +152,7 @@ set tabstop=4
 set path+=**					" Searches current directory recursively.
 set wildmenu					" Display all matches when tab complete.
 set incsearch
+set hlsearch                    " Keep matches highlighted
 set nobackup
 set noswapfile
 
@@ -142,11 +165,26 @@ set guioptions-=T  "remove toolbar
 set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
+set clipboard=unnamed
+
+" Start NERDTree if no file else in insert mode
+function InsertIfEmpty()
+    if @% == ""                                 " No file opened
+        NERDTree
+    elseif filereadable(@%) == 0                " File doesn't exist yet
+        startinsert
+    elseif line('$') == 1 && col('$') == 1      " File is empty
+        startinsert
+    endif
+endfunction
+
+au VimEnter * call InsertIfEmpty()
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Uncomment to autostart the NERDTree
-autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
@@ -154,6 +192,7 @@ let NERDTreeShowLineNumbers=1
 let NERDTreeShowHidden=1
 let NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize=38
+let g:NERDTreeWinPos = "right"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "=> Force convert text to UTF-8
