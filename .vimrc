@@ -146,7 +146,7 @@ set guioptions-=L  "remove left-hand scroll bar
 " => NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Uncomment to autostart the NERDTree
-" autocmd vimenter * NERDTree
+autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
