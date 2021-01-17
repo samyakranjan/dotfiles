@@ -21,6 +21,7 @@ Plugin 'mtdl9/vim-log-highlighting'
 Plugin 'vimwiki/vimwiki'                            " Vim wiki
 Plugin 'tpope/vim-commentary'                       " Better comments
 Plugin 'unblevable/quick-scope'                     " First letter highlighting
+Plugin 'peterhoeg/vim-qml'
 "Plugin 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 "Plugin 'dracula/vim', { 'name': 'dracula' }         " colorscheme
