@@ -179,13 +179,12 @@ function InsertIfEmpty()
     endif
 endfunction
 
-au VimEnter * call InsertIfEmpty()
+" Uncomment to autostart the NERDTree
+"au VimEnter * call InsertIfEmpty()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => NERDTree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Uncomment to autostart the NERDTree
-"autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '►'
 let g:NERDTreeDirArrowCollapsible = '▼'
