@@ -1,4 +1,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Created by Samyak Ranjan
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible              " be iMproved, required
@@ -22,6 +27,8 @@ Plugin 'vimwiki/vimwiki'                            " Vim wiki
 Plugin 'tpope/vim-commentary'                       " Better comments
 Plugin 'unblevable/quick-scope'                     " First letter highlighting
 Plugin 'peterhoeg/vim-qml'
+"Plugin 'statox/vim-compare-lines'                   " Compare 2 lines with :CL
+
 "Plugin 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 "Plugin 'dracula/vim', { 'name': 'dracula' }         " colorscheme
@@ -70,7 +77,6 @@ let g:qs_highlight_on_keys = ['f', 'F']
 
 set tags =C:\code\app-player\hd\Source\tags
 set tags+=C:\code\app-player\opengl\tags
-set tags+=C:\code\app-player\arabica\source\tags
 set tags+=C:\code\scratch-sohil\tags
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -97,7 +103,7 @@ let g:vimwiki_list = [
 " Remap Keys
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <space> za
-nnoremap <c-u> veU
+nnoremap <c-u> viwU
 nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
 
 "Tabs
@@ -124,11 +130,20 @@ nnoremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 let mapleader = ","
 
-nnoremap <leader>ev :vsp c:\code\sr\dotfiles\.vimrc<CR>
+nnoremap <leader>ev :tabnew c:\code\sr\dotfiles\.vimrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
+nnoremap <leader>mm :%s///g<CR>:w<CR>
+
+"Build tags
+nnoremap <leader>taghd :!cd /d c:\code\app-player\hd\Source & ctags -R --file-tags=yes --languages=C,C++,C\#,Make --exclude=.git --exclude=Tool --exclude=obj --sort=yes<CR>
+nnoremap <leader>taggl :!cd /d c:\code\app-player\opengl & ctags -R --file-tags=yes --languages=C,C++ --exclude=.git --sort=yes<CR>
+nnoremap <leader>tagss :!cd /d c:\code\scratch-sohil & ctags -R --file-tags=yes --languages=C\#,python --exclude=.git --exclude=obj --sort=yes<CR>
+nnoremap <leader>tagcl :!cd /d c:\code\cloud & ctags -R --file-tags=yes --languages=python --exclude=.git --exclude=Tool --exclude=obj --exclude=lib  --exclude=*.js --sort=yes<CR>
+
+
 inoremap jk <esc>
 "inoremap <esc> <nop>
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -139,16 +154,21 @@ inoremap jk <esc>
 set laststatus=2
 
 syntax enable
-set number relativenumber
+"set number relativenumber
+set number
 let g:rehash256 = 1
 
 " Use spaces instead of tabs
 set expandtab
 set smarttab
 
+set nocindent
+set autoindent
+
 " 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
+set softtabstop=4
 
 set path+=**					" Searches current directory recursively.
 set wildmenu					" Display all matches when tab complete.
@@ -156,6 +176,9 @@ set incsearch
 set hlsearch                    " Keep matches highlighted
 set nobackup
 set noswapfile
+
+" Don't scan include files
+set complete-=i
 
 let g:python_highlight_all = 1
 
@@ -167,6 +190,8 @@ set guioptions-=r  "remove right-hand scroll bar
 set guioptions-=L  "remove left-hand scroll bar
 
 set clipboard=unnamed
+
+set backspace=indent,eol,start
 
 " Start NERDTree if no file else in insert mode
 function InsertIfEmpty()
@@ -229,7 +254,6 @@ function! CleanExtraSpaces() "Function to clean unwanted spaces
     call setreg('/', old_query)
 endfun
 
-
 autocmd BufWritePre * :call CleanExtraSpaces()
 
 
@@ -264,3 +288,9 @@ set langmenu=en
 "Sourcing evrything again
 "source $VIMRUNTIME/delmenu.vim
 "source $VIMRUNTIME/menu.vim
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Created by Samyak Ranjan
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
