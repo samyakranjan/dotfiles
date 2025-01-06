@@ -76,8 +76,6 @@ let g:qs_highlight_on_keys = ['f', 'F']
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set tags =C:\code\app-player\hd\Source\tags
-set tags+=C:\code\app-player\opengl\tags
-set tags+=C:\code\scratch-sohil\tags
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lightline Configuration
@@ -93,7 +91,7 @@ let g:lightline = {
 
 let g:vimwiki_list = [
             \ {
-            \   'path': 'c:\code\sr\dotfiles\.vim\vimwiki',
+            \   'path': '@@GIT_DIR@@\.vim\vimwiki',
             \   'syntax': 'markdown',
             \   'ext': '.md',
             \}
@@ -112,7 +110,7 @@ nnoremap tj :tabprev<CR>
 nnoremap tk :tabnext<CR>
 nnoremap tq :tabclose<CR>
 
-" Remove  chars
+" Remove ^M chars
 nnoremap tt :%s/<C-M>//g<CR>
 
 "Switch between windows
@@ -130,17 +128,8 @@ nnoremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 let mapleader = ","
 
-nnoremap <leader>ev :tabnew c:\code\sr\dotfiles\.vimrc<CR>
+nnoremap <leader>ev :tabnew @@GIT_DIR@@\.vimrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-
-nnoremap <leader>mm :%s///g<CR>:w<CR>
-
-"Build tags
-nnoremap <leader>taghd :!cd /d c:\code\app-player\hd\Source & ctags -R --file-tags=yes --languages=C,C++,C\#,Make --exclude=.git --exclude=Tool --exclude=obj --sort=yes<CR>
-nnoremap <leader>taggl :!cd /d c:\code\app-player\opengl & ctags -R --file-tags=yes --languages=C,C++ --exclude=.git --sort=yes<CR>
-nnoremap <leader>tagss :!cd /d c:\code\scratch-sohil & ctags -R --file-tags=yes --languages=C\#,python --exclude=.git --exclude=obj --sort=yes<CR>
-nnoremap <leader>tagcl :!cd /d c:\code\cloud & ctags -R --file-tags=yes --languages=python --exclude=.git --exclude=Tool --exclude=obj --exclude=lib  --exclude=*.js --sort=yes<CR>
-
 
 inoremap jk <esc>
 "inoremap <esc> <nop>
