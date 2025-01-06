@@ -1,7 +1,7 @@
 @echo off
 
 IF NOT EXIST .vim MD .vim
-git clone https://github.com/VundleVim/Vundle.vim.git %cd%\.vim\bundle\Vundle.vim
+IF NOT EXIST %cd%\.vim\bundle\Vundle.vim git clone https://github.com/VundleVim/Vundle.vim.git %cd%\.vim\bundle\Vundle.vim
 
 powershell -Command "(Get-Content .vimrc) -replace '@@GIT_DIR@@', (Get-Location) | Set-Content .vimrc"
 
