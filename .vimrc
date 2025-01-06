@@ -9,9 +9,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=c:\code\sr\dotfiles\.vim\bundle\vundle.vim     " Set the runtime path to include Vundle and initialize
+set rtp+=@@GIT_DIR@@\.vim\bundle\vundle.vim     " Set the runtime path to include Vundle and initialize
 
-call vundle#begin('c:\code\sr\dotfiles\.vim\bundle')           " Install plugins in this dir
+call vundle#begin('@@GIT_DIR@@\.vim\bundle')           " Install plugins in this dir
 
 Plugin 'VundleVim/Vundle.vim'                       " let Vundle manage Vundle, required
 Plugin 'itchyny/lightline.vim'                      " informative status bar
