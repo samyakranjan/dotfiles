@@ -9,9 +9,14 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-set rtp+=@@GIT_DIR@@\.vim\bundle\vundle.vim     " Set the runtime path to include Vundle and initialize
+if has("win32")
+    set rtp+=@@GIT_DIR@@\.vim\bundle\vundle.vim     " Set the runtime path to include Vundle and initialize
+    call vundle#begin('@@GIT_DIR@@\.vim\bundle')    " Install plugins in this dir
+else
+    set rtp+=/Users/samyak/code/dotfiles/.vim/bundle/vundle.vim     " Set the runtime path to include Vundle and initialize
+    call vundle#begin('/Users/samyak/code/dotfiles/.vim/bundle')    " Install plugins in this dir
+endif
 
-call vundle#begin('@@GIT_DIR@@\.vim\bundle')           " Install plugins in this dir
 
 Plugin 'VundleVim/Vundle.vim'                       " let Vundle manage Vundle, required
 Plugin 'itchyny/lightline.vim'                      " informative status bar
@@ -128,7 +133,11 @@ nnoremap <C-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 let mapleader = ","
 
-nnoremap <leader>ev :tabnew @@GIT_DIR@@\.vimrc<CR>
+if has("win32")
+    nnoremap <leader>ev :tabnew @@GIT_DIR@@\.vimrc<CR>
+else
+    nnoremap <leader>ev :tabnew /Users/samyak/code/dotfiles/.vimrc<CR>
+endif
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
 inoremap jk <esc>
